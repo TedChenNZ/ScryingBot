@@ -46,7 +46,7 @@ while True:
                     champion = parameters[1]
 
                 # Riot API
-                response, content = h.request('http://prod.api.pvp.net/api/lol/na/v1.1/summoner/by-name/SoNumber9?api_key=' + api_key)
+                response, content = h.request('http://prod.api.pvp.net/api/lol/na/v1.1/summoner/by-name/' + summoner + '?api_key=' + api_key)
                 print(content)
 
                 # Reply here
