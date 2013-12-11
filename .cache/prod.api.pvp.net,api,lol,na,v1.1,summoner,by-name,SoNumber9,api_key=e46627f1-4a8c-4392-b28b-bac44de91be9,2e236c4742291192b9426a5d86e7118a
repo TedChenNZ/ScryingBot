@@ -1,0 +1,13 @@
+status: 200
+date: Wed, 11 Dec 2013 06:05:08 GMT
+x-newrelic-app-data: PxQFWFFSDwQTVVdUBAgAVkYdFGQHBDcQUQxLA1tMXV1dORYzVBJHNQFUZAQUFVFQVThOA0dYa0kIXlpvTR0RB1cLVwxFZBtEAksIPR4SRg8JWVkEFD8XUUlJDwNaVGtJH19XXgcbQ0p3J2xLGhQEHANJCU8BUQBUXAMFUVNPFQIcRgQDUQMHUVdUAwRbVlJWVVsaPw==
+content-length: 146
+server: Jetty(9.1.0.v20131115)
+access-control-allow-origin: *
+access-control-allow-headers: Content-Type
+content-type: application/json;charset=UTF-8
+content-location: http://prod.api.pvp.net/api/lol/na/v1.1/summoner/by-name/SoNumber9?api_key=e46627f1-4a8c-4392-b28b-bac44de91be9
+connection: keep-alive
+access-control-allow-methods: GET, POST, DELETE, PUT
+
+{"id":27779054,"name":"Sonumber9","profileIconId":579,"summonerLevel":30,"revisionDate":1386713062000,"revisionDateStr":"12/10/2013 10:04 PM UTC"}

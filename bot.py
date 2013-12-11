@@ -1,6 +1,13 @@
-import time
+# Python 3.3.x
+# Requires Praw:
+# Requires httplib2: http://code.google.com/p/httplib2/
 
+import time
 import praw
+import httplib2
+
+api_key = 'e46627f1-4a8c-4392-b28b-bac44de91be9'
+api_key2 = '246bd96f-c140-460c-816c-b0016cc32bf3'
 
 r = praw.Reddit('LolInfoBot by /u/yummypraw v0.1')
 r.login(username='yummypraw', password='shoesandsocks')
@@ -10,6 +17,9 @@ prawWords = ['!lolinfo', '!info']
 f = open('already_done.txt', 'r')
 already_done = f.read().splitlines()
 f.close()
+
+h = httplib2.Http('.cache')
+
 
 print('Running bot')
 while True:
@@ -30,6 +40,10 @@ while True:
                 champion = ''
                 if len(parameters) > 1:
                     champion = parameters[1]
+
+                # Riot API
+                response, content = h.request('http://prod.api.pvp.net/api/lol/na/v1.1/summoner/by-name/SoNumber9?api_key=' + api_key)
+                print(content)
 
                 # Reply here
                 reply = 'Summoner: ' + summoner + '\n\n'
