@@ -5,11 +5,15 @@
 import time
 import praw
 import httplib2
+import logging
 
 api_key = 'e46627f1-4a8c-4392-b28b-bac44de91be9'
 api_key2 = '246bd96f-c140-460c-816c-b0016cc32bf3'
 
-r = praw.Reddit('LolInfoBot by /u/yummypraw v0.1')
+logging.basicConfig(filename='log.txt')
+
+
+r = praw.Reddit('ScryingBot by /u/yummypraw v0.1')
 r.login(username='yummypraw', password='shoesandsocks')
 
 prawWords = ['!lolinfo', '!info']
@@ -59,8 +63,10 @@ while True:
                 f.write(comment.id + '\n')
                 f.close()
                 print(comment.id)
-    except:
-        print("Unexpecter error")
+    except Exception as err:
+        logging.exception(err)
+        with open('log.txt', 'a') as f:
+            f.write('\n\n\n')
 
     time.sleep(300)
 
