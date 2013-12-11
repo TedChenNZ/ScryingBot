@@ -1,0 +1,8 @@
+ERROR:root:Can't convert 'int' object to str implicitly
+Traceback (most recent call last):
+  File "bot.py", line 161, in <module>
+    reply += 'Stats:\n\n    ' + tier + ' ' + rank + ' ' + str(lp) + 'LP (' + rWins + ':' + rLosses + '\n\n'
+TypeError: Can't convert 'int' object to str implicitly
+
+
+

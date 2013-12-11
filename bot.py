@@ -114,16 +114,16 @@ while True:
                 content = json.loads(content.decode('utf-8'))
 
                 # This is in case RankedSolo5x5 is not always [3]
-                # rWins = [summary["wins"] for summary
-                #           in content["playerStatSummaries"]
-                #           if summary["playerStatSummaryType"] == "RankedSolo5x5"][0]
-                # rLosses = [summary["losses"] for summary
-                #           in content["playerStatSummaries"]
-                #           if summary["playerStatSummaryType"] == "RankedSolo5x5"][0]
+                rWins = [summary["wins"] for summary
+                          in content["playerStatSummaries"]
+                          if summary["playerStatSummaryType"] == "RankedSolo5x5"][0]
+                rLosses = [summary["losses"] for summary
+                          in content["playerStatSummaries"]
+                          if summary["playerStatSummaryType"] == "RankedSolo5x5"][0]
 
-                rankedStats = content['playerStatSummaries'][3]
-                rWins = rankedStats['wins']
-                rLosses = rankedStats['losses']
+                # rankedStats = content['playerStatSummaries'][3]
+                # rWins = rankedStats['wins']
+                # rLosses = rankedStats['losses']
                 print(rWins)
                 print(rLosses)
 
@@ -156,13 +156,13 @@ while True:
                 print(list(topPlayedChamps.items())[0][0])
 
                 # Reply here
-                reply = 'Summoner: ' + summoner + '\n\n'
-                reply += 'Region: ' + region.upper() + '\n\n'
-                reply += 'Stats:\n\n    ' + tier + ' ' + rank + ' ' + str(lp) + 'LP\n\n\n'
+                reply = 'Summoner:\n\n    ' + summoner + '\n\n'
+                reply += 'Region:\n\n    ' + region.upper() + '\n\n'
+                reply += 'Stats:\n\n    ' + tier + ' ' + rank + ' ' + str(lp) + 'LP (' + str(rWins) + ':' + str(rLosses) + ')\n\n'
                 reply += 'Most Played Champions:\n\n'
-                reply += '    ' + list(topPlayedChamps.items())[0][1] + '(' + str(list(topPlayedChamps.items())[0][0]) + ')'
-                reply += '    ' + list(topPlayedChamps.items())[1][1] + '(' + str(list(topPlayedChamps.items())[1][0]) + ')'
-                reply += '    ' + list(topPlayedChamps.items())[2][1] + '(' + str(list(topPlayedChamps.items())[2][0]) + ')'
+                reply += '    ' + list(topPlayedChamps.items())[0][1] + '(' + str(list(topPlayedChamps.items())[0][0]) + ')\n\n'
+                reply += '    ' + list(topPlayedChamps.items())[1][1] + '(' + str(list(topPlayedChamps.items())[1][0]) + ')\n\n'
+                reply += '    ' + list(topPlayedChamps.items())[2][1] + '(' + str(list(topPlayedChamps.items())[2][0]) + ')\n\n'
 
 
                 if len(champion) > 0:
