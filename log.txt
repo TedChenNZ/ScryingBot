@@ -22,3 +22,177 @@ KeyError: 'playerStatSummaries'
 
 
 
+2013-12-13 01:49:26.253586
+Sir Hazard/euw/
+31587103
+cdzxyt0
+ERROR:root:'playerStatSummaries'
+Traceback (most recent call last):
+  File "bot.py", line 148, in <module>
+    in content["playerStatSummaries"]
+KeyError: 'playerStatSummaries'
+
+
+
+2013-12-13 01:50:34.998260
+Sir Hazard/euw/
+31587103
+cdzxyt0
+ERROR:root:'playerStatSummaries'
+Traceback (most recent call last):
+  File "bot.py", line 148, in <module>
+    in content["playerStatSummaries"]
+KeyError: 'playerStatSummaries'
+
+
+
+2013-12-13 01:53:02.427103
+Sir Hazard/euw/
+31587103
+cdzxz0t
+ERROR:root:503 Server Error: Service Unavailable
+Traceback (most recent call last):
+  File "bot.py", line 73, in <module>
+    for comment in subreddit_comments:
+  File "/usr/local/lib/python3.3/dist-packages/praw/__init__.py", line 440, in get_content
+    page_data = self.request_json(url, params=params)
+  File "/usr/local/lib/python3.3/dist-packages/praw/decorators.py", line 158, in wrapped
+    return_value = function(reddit_session, *args, **kwargs)
+  File "/usr/local/lib/python3.3/dist-packages/praw/__init__.py", line 476, in request_json
+    response = self._request(url, params, data)
+  File "/usr/local/lib/python3.3/dist-packages/praw/__init__.py", line 349, in _request
+    _raise_response_exceptions(response)
+  File "/usr/local/lib/python3.3/dist-packages/praw/internal.py", line 173, in _raise_response_exceptions
+    response.raise_for_status()
+  File "/usr/local/lib/python3.3/dist-packages/requests/models.py", line 765, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 503 Server Error: Service Unavailable
+
+
+
+2013-12-13 01:54:17.559492
+Sir Hazard/euw/
+31587103
+cdzxz0t
+ERROR:root:503 Server Error: Service Unavailable
+Traceback (most recent call last):
+  File "bot.py", line 73, in <module>
+    for comment in subreddit_comments:
+  File "/usr/local/lib/python3.3/dist-packages/praw/__init__.py", line 440, in get_content
+    page_data = self.request_json(url, params=params)
+  File "/usr/local/lib/python3.3/dist-packages/praw/decorators.py", line 158, in wrapped
+    return_value = function(reddit_session, *args, **kwargs)
+  File "/usr/local/lib/python3.3/dist-packages/praw/__init__.py", line 476, in request_json
+    response = self._request(url, params, data)
+  File "/usr/local/lib/python3.3/dist-packages/praw/__init__.py", line 349, in _request
+    _raise_response_exceptions(response)
+  File "/usr/local/lib/python3.3/dist-packages/praw/internal.py", line 173, in _raise_response_exceptions
+    response.raise_for_status()
+  File "/usr/local/lib/python3.3/dist-packages/requests/models.py", line 765, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 503 Server Error: Service Unavailable
+
+
+
+2013-12-13 01:55:32.651819
+Sir Hazard/euw/
+31587103
+cdzxz0t
+ERROR:root:503 Server Error: Service Unavailable
+Traceback (most recent call last):
+  File "bot.py", line 73, in <module>
+    for comment in subreddit_comments:
+  File "/usr/local/lib/python3.3/dist-packages/praw/__init__.py", line 440, in get_content
+    page_data = self.request_json(url, params=params)
+  File "/usr/local/lib/python3.3/dist-packages/praw/decorators.py", line 158, in wrapped
+    return_value = function(reddit_session, *args, **kwargs)
+  File "/usr/local/lib/python3.3/dist-packages/praw/__init__.py", line 476, in request_json
+    response = self._request(url, params, data)
+  File "/usr/local/lib/python3.3/dist-packages/praw/__init__.py", line 349, in _request
+    _raise_response_exceptions(response)
+  File "/usr/local/lib/python3.3/dist-packages/praw/internal.py", line 173, in _raise_response_exceptions
+    response.raise_for_status()
+  File "/usr/local/lib/python3.3/dist-packages/requests/models.py", line 765, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 503 Server Error: Service Unavailable
+
+
+
+2013-12-13 02:05:29.342159
+pomelo/euw/MonkeyKing
+21345568
+cdzy5nc
+ERROR:root:'playerStatSummaries'
+Traceback (most recent call last):
+  File "bot.py", line 148, in <module>
+    in content["playerStatSummaries"]
+KeyError: 'playerStatSummaries'
+
+
+
+2013-12-13 02:16:25.113686
+EagleDnB/euw/Annie
+27982155
+cdzya9l
+ERROR:root:'playerStatSummaries'
+Traceback (most recent call last):
+  File "bot.py", line 148, in <module>
+    in content["playerStatSummaries"]
+KeyError: 'playerStatSummaries'
+
+
+
+2013-12-13 02:29:37.993600
+sikin/euw/
+361746
+http://www.reddit.com/r/leagueoflegends/comments/1spc7a/play_league_watch_twitch_use_twitch_chat_to_get/cdzyggj
+ERROR:root:'playerStatSummaries'
+Traceback (most recent call last):
+  File "bot.py", line 148, in <module>
+    in content["playerStatSummaries"]
+KeyError: 'playerStatSummaries'
+
+
+
+2013-12-13 02:30:06.029307
+7oyboy/euw/Leona
+24214323
+http://www.reddit.com/r/leagueoflegends/comments/1sphfh/ocelote_experiences_hybrid_rengar/cdzyh0u
+ERROR:root:500 Server Error: Internal Server Error
+Traceback (most recent call last):
+  File "bot.py", line 289, in <module>
+    replyToComment(comment, reply)
+  File "bot.py", line 22, in replyToComment
+    comment.reply(reply)
+  File "/usr/local/lib/python3.3/dist-packages/praw/objects.py", line 331, in reply
+    response = self.reddit_session._add_comment(self.fullname, text)
+  File "/usr/local/lib/python3.3/dist-packages/praw/decorators.py", line 320, in wrapped
+    return function(cls, *args, **kwargs)
+  File "/usr/local/lib/python3.3/dist-packages/praw/__init__.py", line 1939, in _add_comment
+    retry_on_error=False)
+  File "/usr/local/lib/python3.3/dist-packages/praw/decorators.py", line 158, in wrapped
+    return_value = function(reddit_session, *args, **kwargs)
+  File "/usr/local/lib/python3.3/dist-packages/praw/__init__.py", line 479, in request_json
+    retry_on_error=retry_on_error)
+  File "/usr/local/lib/python3.3/dist-packages/praw/__init__.py", line 349, in _request
+    _raise_response_exceptions(response)
+  File "/usr/local/lib/python3.3/dist-packages/praw/internal.py", line 173, in _raise_response_exceptions
+    response.raise_for_status()
+  File "/usr/local/lib/python3.3/dist-packages/requests/models.py", line 765, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error
+
+
+
+2013-12-13 02:31:35.839193
+Teemos Grandpa/euw/
+33474593
+http://www.reddit.com/r/leagueoflegends/comments/1spqsk/wanna_duo/cdzyhq3
+ERROR:root:'playerStatSummaries'
+Traceback (most recent call last):
+  File "bot.py", line 148, in <module>
+    in content["playerStatSummaries"]
+KeyError: 'playerStatSummaries'
+
+
+

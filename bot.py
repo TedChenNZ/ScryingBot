@@ -86,7 +86,7 @@ while True:
                 champion = ''
                 if len(parameters) > 1:
                     # Check if it's a region
-                    if (len(parameters[1].lstrip().lower()) > 3) or (parameters[1].lstrip().lower() == 'vi'):
+                    if (len(parameters[1].lstrip().lower()) > 4) or (parameters[1].lstrip().lower() == 'vi') or (parameters[1].lstrip().lower() == 'lux'):
                         # 2nd parameter is a champion
                         champion = parameters[1].lstrip()
                     else:
@@ -126,7 +126,9 @@ while True:
                     replyToComment(comment, reply)
                     raise MyException(reply)
                 elif response.status == 500:
-                    reply = 'Summoner "' + summoner + '" was not found.'
+                    reply = 'Summoner "' + summoner + '" was not found. Riot API Internal Server Error.'
+                    replyToComment(comment, reply)
+                    raise MyException(reply)
                 elif response.status == 503:
                     reply = 'Riot API Service for ' + region.uppper() + ' is currently unavailable.'
                     replyToComment(comment, reply)
@@ -171,9 +173,9 @@ while True:
                     content = json.loads(content.decode('utf-8'))
                     level = content['summonerLevel']
 
-                    reply = '##Summoner:\n\n    ' + summoner + '\n\n'
-                    reply += '##Region:\n\n    ' + region.upper() + '\n\n'
-                    reply += '##Unranked Stats:\n\n    ' + 'Level ' + str(level) + '\n\n'
+                    reply = '**Summoner:** ' + summoner + '\n\n'
+                    reply += '**Region:** ' + region.upper() + '\n\n'
+                    reply += '**Unranked Stats:**\n\n    ' + 'Level ' + str(level) + '\n\n'
                     
                     if unranked:
                         reply += '    ' + str(nWins) + 'W:' + str(nLosses) + 'L\n\n'
@@ -252,15 +254,15 @@ while True:
                                 break
 
                 # Reply here
-                reply = '##Summoner:\n\n    ' + summoner + '\n\n'
-                reply += '##Region:\n\n    ' + region.upper() + '\n\n'
+                reply = '**Summoner:** ' + summoner + '\n\n'
+                reply += '**Region:** ' + region.upper() + '\n\n'
                 if leaguesService:
-                    reply += '##Ranked Stats:\n\n    ' + tier + ' ' + rank + ' ' + str(lp) + 'LP (' + str(rWins) + 'W:' + str(rLosses) + 'L)\n\n'
+                    reply += '**Ranked Stats:** ' + tier + ' ' + rank + ' ' + str(lp) + 'LP (' + str(rWins) + 'W:' + str(rLosses) + 'L)\n\n'
                 else:
-                    reply += '##Ranked Stats:\n\n    Riot Leagues API Currently Unavailable\n\n'
-                reply += '##Most Played Champions:\n\n'
-                reply += '    ' + topPlayedChamps[0][1] + ' (' + str(topPlayedChamps[0][0]) + ')\n\n'
-                reply += '    ' + topPlayedChamps[1][1] + ' (' + str(topPlayedChamps[1][0]) + ')\n\n'
+                    reply += '**Ranked Stats:** Riot Leagues API Currently Unavailable\n\n'
+                reply += '**Most Played Champions:** '
+                reply += '    ' + topPlayedChamps[0][1] + ' (' + str(topPlayedChamps[0][0]) + '), '
+                reply += '    ' + topPlayedChamps[1][1] + ' (' + str(topPlayedChamps[1][0]) + '), '
                 reply += '    ' + topPlayedChamps[2][1] + ' (' + str(topPlayedChamps[2][0]) + ')\n\n'
 
                 # reply += '    ' + '[](/' + topPlayedChamps [0][1] + ')' + topPlayedChamps[0][1] + '(' + str(topPlayedChamps[0][0]) + ')\n\n'
@@ -275,7 +277,7 @@ while True:
                         if champion.lower() == champ[1].lower():
                             champion = champ[0]
                     if champFound:
-                        reply += '##Champion:\n\n'
+                        reply += '**Champion:**\n\n'
                         reply += '    ' + champion + ' (' + str(cP) + ')\n\n'
                         reply += '    ' + str(cWins) + 'W:' + str(cLosses) + 'L (' + format(winRatio, '.1f') + '%)\n\n'
                         reply += '    ' + format(aK, '.1f') + '/' + format(aD, '.1f') + '/' + format(aA, '.1f') + '(Average K/D/A)\n\n'
@@ -287,6 +289,16 @@ while True:
                 replyToComment(comment, reply)
     except MyException as e:
         print(e.value)
+        # Logs exceptions
+        with open('log.txt', 'a') as f:
+            f.write(str(datetime.datetime.now()) + '\n')
+            f.write(e.value)
+            f.write(summoner + '/' + region + '/' + champion + '\n')
+            f.write(sid + '\n')
+            f.write(comment.permalink + '\n')
+        logging.exception(e)
+        with open('log.txt', 'a') as f:
+            f.write('\n\n\n')
     except Exception as e:
         # Logs exceptions
         print('Unexpected error occured')
@@ -294,7 +306,7 @@ while True:
             f.write(str(datetime.datetime.now()) + '\n')
             f.write(summoner + '/' + region + '/' + champion + '\n')
             f.write(sid + '\n')
-            f.write(comment.id + '\n')
+            f.write(comment.permalink + '\n')
         logging.exception(e)
         with open('log.txt', 'a') as f:
             f.write('\n\n\n')
@@ -302,5 +314,5 @@ while True:
 
     iterations += 1
     print('Iterations done: ' + str(iterations))
-    time.sleep(60)
+    time.sleep(30)
 
