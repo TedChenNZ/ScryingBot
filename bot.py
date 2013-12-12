@@ -43,7 +43,7 @@ api_key2 = '246bd96f-c140-460c-816c-b0016cc32bf3'
 # Riot API
 api_url = 'http://prod.api.pvp.net/api/'
 availableRegions = ['euw', 'eune', 'na']
-championTuple = [("Cho'Gath",'Chogath'), ('Dr. Mundo','DrMundo'), ('Jarvan IV','JarvanIV'), ("Kha'Zix",'Khazix'), ("Kog'Maw","KogMaw"), ('Twisted Fate','TwistedFate'), ('Wukong','MonkeyKing')]
+championTuple = [("Cho'Gath",'Chogath'), ('Dr. Mundo','DrMundo'), ('Jarvan IV','JarvanIV'), ("Kha'Zix",'Khazix'), ("Kog'Maw","KogMaw"), ('Lee Sin', 'LeeSin'), ('Master Yi', 'MasterYi'), ('Miss Fortune', 'MissFortune'), ('Twisted Fate','TwistedFate'), ('Wukong','MonkeyKing')]
 
 # Logging config
 logging.basicConfig(filename='log.txt')
@@ -259,9 +259,9 @@ while True:
                 else:
                     reply += '##Ranked Stats:\n\n    Riot Leagues API Currently Unavailable\n\n'
                 reply += '##Most Played Champions:\n\n'
-                reply += '    ' + topPlayedChamps[0][1] + '(' + str(topPlayedChamps[0][0]) + ')\n\n'
-                reply += '    ' + topPlayedChamps[1][1] + '(' + str(topPlayedChamps[1][0]) + ')\n\n'
-                reply += '    ' + topPlayedChamps[2][1] + '(' + str(topPlayedChamps[2][0]) + ')\n\n'
+                reply += '    ' + topPlayedChamps[0][1] + ' (' + str(topPlayedChamps[0][0]) + ')\n\n'
+                reply += '    ' + topPlayedChamps[1][1] + ' (' + str(topPlayedChamps[1][0]) + ')\n\n'
+                reply += '    ' + topPlayedChamps[2][1] + ' (' + str(topPlayedChamps[2][0]) + ')\n\n'
 
                 # reply += '    ' + '[](/' + topPlayedChamps [0][1] + ')' + topPlayedChamps[0][1] + '(' + str(topPlayedChamps[0][0]) + ')\n\n'
                 # reply += '    ' + '[](/' + topPlayedChamps [1][1] + ')' + topPlayedChamps[1][1] + '(' + str(topPlayedChamps[1][0]) + ')\n\n'

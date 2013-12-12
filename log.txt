@@ -1,24 +1,24 @@
-2013-12-12 23:56:19.026613
-BarcodeKiller/na/Riven
-47409152
-cdzwvp8
-ERROR:root:'47409152'
+2013-12-13 01:11:27.551592
+DongerZ/na/eune
+44889781
+cdzxkj3
+ERROR:root:'playerStatSummaries'
 Traceback (most recent call last):
-  File "bot.py", line 187, in <module>
-    for entry in content[sid]['entries']:
-KeyError: '47409152'
+  File "bot.py", line 146, in <module>
+    in content["playerStatSummaries"]
+KeyError: 'playerStatSummaries'
 
 
 
-2013-12-12 23:57:11.273748
-BarcodeKiller/na/Riven
-47409152
-cdzwvp8
-ERROR:root:'47409152'
+2013-12-13 01:18:40.979143
+Qwiko/euw/leesin
+21589638
+cdzxn22
+ERROR:root:'playerStatSummaries'
 Traceback (most recent call last):
-  File "bot.py", line 187, in <module>
-    for entry in content[sid]['entries']:
-KeyError: '47409152'
+  File "bot.py", line 146, in <module>
+    in content["playerStatSummaries"]
+KeyError: 'playerStatSummaries'
 
 
 
