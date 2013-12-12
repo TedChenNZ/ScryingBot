@@ -1,48 +1,24 @@
-2013-12-12 23:14:27.922748
-Dryus/na/
-34403757
-cdzvtnl
-ERROR:root:'34403757'
+2013-12-12 23:56:19.026613
+BarcodeKiller/na/Riven
+47409152
+cdzwvp8
+ERROR:root:'47409152'
 Traceback (most recent call last):
-  File "bot.py", line 183, in <module>
+  File "bot.py", line 187, in <module>
     for entry in content[sid]['entries']:
-KeyError: '34403757'
+KeyError: '47409152'
 
 
 
-2013-12-12 23:17:36.658623
-Dryus/na/
-34403757
-cdzvtnl
-ERROR:root:'34403757'
+2013-12-12 23:57:11.273748
+BarcodeKiller/na/Riven
+47409152
+cdzwvp8
+ERROR:root:'47409152'
 Traceback (most recent call last):
-  File "bot.py", line 184, in <module>
+  File "bot.py", line 187, in <module>
     for entry in content[sid]['entries']:
-KeyError: '34403757'
-
-
-
-2013-12-12 23:18:34.955248
-Dryus/na/
-34403757
-cdzvtnl
-ERROR:root:'34403757'
-Traceback (most recent call last):
-  File "bot.py", line 183, in <module>
-    for entry in content[sid]['entries']:
-KeyError: '34403757'
-
-
-
-2013-12-12 23:19:46.663002
-Dryus/na/monkeyking
-34403757
-cdzt1ea
-ERROR:root:'playerStatSummaries'
-Traceback (most recent call last):
-  File "bot.py", line 141, in <module>
-    in content["playerStatSummaries"]
-KeyError: 'playerStatSummaries'
+KeyError: '47409152'
 
 
 

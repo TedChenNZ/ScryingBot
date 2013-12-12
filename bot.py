@@ -18,7 +18,7 @@ import datetime
 
 # Reply to comment
 def replyToComment(comment, reply):
-    reply += "\n\n---\n\nHi! I'm ScryingBot, I reply with League of Legends summoner stats. To summon me, start a comment with one of the following commands:\n\n    !info summonername, region\n\n    !info summonername, region, championname\n\nI currently only support NA, EUW, and EUNE.\n\nI'm still in development, so send me a PM if you spot any errors or would like to give me some feedback."
+    reply += "\n\n---\n\nHi! I'm ScryingBot, I reply with League of Legends summoner stats. To summon me, start a comment with one of the following commands:\n\n    !info summonername, region\n\n    !info summonername, region, championname\n\nI currently only support NA, EUW, and EUNE.\n\nI'm still in development, so send me a PM if you spot any errors or would like to give me some feedback.\n\n*Please be patient with me, I may not be able to respond to every query at this time because of Reddit post limits and Riot API call limits.*\n\n"
     comment.reply(reply)
     
     # Add the comment to the already_done list and file
@@ -127,6 +127,10 @@ while True:
                     raise MyException(reply)
                 elif response.status == 500:
                     reply = 'Summoner "' + summoner + '" was not found.'
+                elif response.status == 503:
+                    reply = 'Riot API Service for ' + region.uppper() + ' is currently unavailable.'
+                    replyToComment(comment, reply)
+                    raise MyException(reply)
 
                 content = json.loads(content.decode('utf-8'))
                 sid = str(content['id'])
@@ -183,13 +187,18 @@ while True:
 
                 # Get Tier, Division and LP
                 response, content = h.request(api_url + region + '/v2.1/' + 'league/by-summoner/' + sid + '?api_key=' + api_key)
-                content = json.loads(content.decode('utf-8'))
-                for entry in content[sid]['entries']:
-                    if entry['playerOrTeamId'] == sid:
-                        tier = entry['tier']
-                        rank = entry['rank']
-                        lp = entry['leaguePoints']
-                        break
+                if response.status == 503:
+                    # Riot Service Unavailable
+                    leaguesService = False
+                else:
+                    content = json.loads(content.decode('utf-8'))
+                    for entry in content[sid]['entries']:
+                        if entry['playerOrTeamId'] == sid:
+                            tier = entry['tier']
+                            rank = entry['rank']
+                            lp = entry['leaguePoints']
+                            break
+                    leaguesService = True
                 # print(tier)
                 # print(rank)
                 # print(lp)
@@ -245,7 +254,10 @@ while True:
                 # Reply here
                 reply = '##Summoner:\n\n    ' + summoner + '\n\n'
                 reply += '##Region:\n\n    ' + region.upper() + '\n\n'
-                reply += '##Ranked Stats:\n\n    ' + tier + ' ' + rank + ' ' + str(lp) + 'LP (' + str(rWins) + 'W:' + str(rLosses) + 'L)\n\n'
+                if leaguesService:
+                    reply += '##Ranked Stats:\n\n    ' + tier + ' ' + rank + ' ' + str(lp) + 'LP (' + str(rWins) + 'W:' + str(rLosses) + 'L)\n\n'
+                else:
+                    reply += '##Ranked Stats:\n\n    Riot Leagues API Currently Unavailable\n\n'
                 reply += '##Most Played Champions:\n\n'
                 reply += '    ' + topPlayedChamps[0][1] + '(' + str(topPlayedChamps[0][0]) + ')\n\n'
                 reply += '    ' + topPlayedChamps[1][1] + '(' + str(topPlayedChamps[1][0]) + ')\n\n'
