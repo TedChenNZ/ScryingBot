@@ -1,5 +1,11 @@
+# Scrying Bot
+# By Ted Chen (sonumber9)
+# A Reddit bot which uses the Riot API to automatically
+# reply to comments asking for League of Legends summoner
+# information and statistics.
+
 # Python 3.3.x
-# Requires Praw:
+# Requires PRAW: https://praw.readthedocs.org/
 # Requires httplib2: http://code.google.com/p/httplib2/
 
 import time
@@ -43,8 +49,9 @@ championTuple = [("Cho'Gath",'Chogath'), ('Dr. Mundo','DrMundo'), ('Jarvan IV','
 logging.basicConfig(filename='log.txt')
 
 # PRAW Reddit config
-r = praw.Reddit('ScryingBot by /u/yummypraw v0.5')
-r.login(username='yummypraw', password='shoesandsocks')
+r = praw.Reddit('ScryingBot by /u/SoNumber9 v0.8')
+# r.login(username='yummypraw', password='shoesandsocks')
+r.login(username = 'ScryingBot')
 
 prawWords = ['!info']
 
@@ -61,7 +68,7 @@ print('Running bot')
 iterations = 0
 while True:
     try:
-        subreddit = r.get_subreddit('sandbox')
+        subreddit = r.get_subreddit('leagueoflegends')
         subreddit_comments = subreddit.get_comments()
         for comment in subreddit_comments:
             text = comment.body.lower()
@@ -106,6 +113,7 @@ while True:
 
                 print('"'+summoner+'"')
                 print(region)
+                print(champion)
 
                 # Use Riot API 
 
@@ -134,8 +142,8 @@ while True:
                 rLosses = [summary["losses"] for summary
                           in content["playerStatSummaries"]
                           if summary["playerStatSummaryType"] == "RankedSolo5x5"][0]
-                print(rWins)
-                print(rLosses)
+                # print(rWins)
+                # print(rLosses)
 
                 # Get Tier, Division and LP
                 response, content = h.request(api_url + region + '/v2.1/' + 'league/by-summoner/' + sid + '?api_key=' + api_key)
@@ -146,9 +154,9 @@ while True:
                         rank = entry['rank']
                         lp = entry['leaguePoints']
                         break
-                print(tier)
-                print(rank)
-                print(lp)
+                # print(tier)
+                # print(rank)
+                # print(lp)
 
                 # Get Top Played Champs
                 response, content = h.request(api_url + 'lol/' + region + '/v1.1/' + 'stats/by-summoner/' + sid + '/ranked?api_key=' + api_key)
@@ -194,15 +202,9 @@ while True:
                                 # print(format(aK, '.1f'))
                                 # print(format(aD, '.1f'))
                                 # print(format(aA, '.1f'))
-                                print(format(winRatio, '.1f'))
+                                # print(format(winRatio, '.1f'))
                                 champFound = True
-                                
                                 break
-                    # if not champFound:
-                    #     reply = 'Either the champion does not exist or the summoner has not played that champion in ranked.'
-                    #     replyToComment(comment, reply)
-                    #     raise MyException('Champion not found.')
-
 
                 # Reply here
                 reply = '##Summoner:\n\n    ' + summoner + '\n\n'
@@ -239,15 +241,13 @@ while True:
         print(e.value)
 
     except Exception as e:
+        # Logs exceptions
         print('Unexpected error occured')
-
         with open('log.txt', 'a') as f:
             f.write(str(datetime.datetime.now()) + '\n')
             f.write(summoner + '/' + region + '/' + champion + '\n')
             f.write(comment.id + '\n')
-
         logging.exception(e)
-
         with open('log.txt', 'a') as f:
             f.write('\n\n\n')
     iterations += 1
