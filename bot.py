@@ -16,13 +16,6 @@ import json
 from collections import OrderedDict
 import datetime
 
-# Custom exception
-class MyException(Exception):
-    def __init__(self, value):
-        self.value = value
-    def __str__(self):
-        return repr(self.value)
-
 # Reply to comment
 def replyToComment(comment, reply):
     reply += "\n\n---\n\nHi! I'm ScryingBot, I reply with League of Legends summoner stats. To summon me, start a comment with one of the following commands:\n\n    !info summonername, region\n\n    !info summonername, region, championname\n\nI currently only support NA, EUW, and EUNE.\n\nI'm still in development, so send me a PM if you spot any errors or would like to give me some feedback."
@@ -34,6 +27,13 @@ def replyToComment(comment, reply):
     f.write(comment.id + '\n')
     f.close()
     print(comment.id)
+
+# Custom exception
+class MyException(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
 
 
 # Riot API Keys
@@ -94,6 +94,7 @@ while True:
                         if parameters[1].lstrip().lower() in availableRegions:
                             region = parameters[1].lstrip().lower()
                         else:
+                            region = parameters[1].lstrip().lower()
                             reply = 'The region, "' + region + '" is not supported.'
                             replyToComment(comment,reply)
                             raise MyException(reply)
@@ -130,20 +131,55 @@ while True:
                 content = json.loads(content.decode('utf-8'))
                 sid = str(content['id'])
                 summoner = content['name']
-
-
+                
+                print(sid)
                 # Get SoloQueue Wins/Losses
-                response, content = h.request(api_url + 'lol/' + region + '/v1.1/' + 'stats/by-summoner/' + sid + '/summary?api_key=' + api_key)
-                content = json.loads(content.decode('utf-8'))
+                try:
+                    response, content = h.request(api_url + 'lol/' + region + '/v1.1/' + 'stats/by-summoner/' + sid + '/summary?api_key=' + api_key)
+                    content = json.loads(content.decode('utf-8'))
 
-                rWins = [summary["wins"] for summary
-                          in content["playerStatSummaries"]
-                          if summary["playerStatSummaryType"] == "RankedSolo5x5"][0]
-                rLosses = [summary["losses"] for summary
-                          in content["playerStatSummaries"]
-                          if summary["playerStatSummaryType"] == "RankedSolo5x5"][0]
-                # print(rWins)
-                # print(rLosses)
+                    rWins = [summary["wins"] for summary
+                              in content["playerStatSummaries"]
+                              if summary["playerStatSummaryType"] == "RankedSolo5x5"][0]
+                    rLosses = [summary["losses"] for summary
+                              in content["playerStatSummaries"]
+                              if summary["playerStatSummaryType"] == "RankedSolo5x5"][0]
+                    print(rWins)
+                    print(rLosses)
+                except IndexError as e:
+                    print('No ranked 5v5')
+                    try:
+                        # No Ranked 5v5 Games
+                        nWins = [summary["wins"] for summary
+                                  in content["playerStatSummaries"]
+                                  if summary["playerStatSummaryType"] == "Unranked"][0]
+                        nLosses = [summary["losses"] for summary
+                                  in content["playerStatSummaries"]
+                                  if summary["playerStatSummaryType"] == "Unranked"][0]
+                        unranked = True
+                        print(nWins)
+                        print(nLosses)
+                    except IndexError as e:
+                        # No Unranked 5v5 Games
+                        unranked = False
+
+                    response, content = h.request(api_url + 'lol/' + region + '/v1.1/' + 'summoner/' + sid + '?api_key=' + api_key)
+                    content = json.loads(content.decode('utf-8'))
+                    level = content['summonerLevel']
+
+                    reply = '##Summoner:\n\n    ' + summoner + '\n\n'
+                    reply += '##Region:\n\n    ' + region.upper() + '\n\n'
+                    reply += '##Unranked Stats:\n\n    ' + 'Level ' + str(level) + '\n\n'
+                    
+                    if unranked:
+                        reply += '    ' + str(nWins) + 'W:' + str(nLosses) + 'L\n\n'
+                    else:
+                        reply += 'No Unranked 5v5 Games Played\n\n'
+                    reply += 'No Ranked Solo 5v5 Games Played\n\n'
+                    
+                    print(reply)
+                    replyToComment(comment, reply)
+                    raise MyException('No Ranked Solo 5v5 Games Played')
 
                 # Get Tier, Division and LP
                 response, content = h.request(api_url + region + '/v2.1/' + 'league/by-summoner/' + sid + '?api_key=' + api_key)
@@ -209,7 +245,7 @@ while True:
                 # Reply here
                 reply = '##Summoner:\n\n    ' + summoner + '\n\n'
                 reply += '##Region:\n\n    ' + region.upper() + '\n\n'
-                reply += '##Ranked Stats:\n\n    ' + tier + ' ' + rank + ' ' + str(lp) + 'LP (' + str(rWins) + ':' + str(rLosses) + ')\n\n'
+                reply += '##Ranked Stats:\n\n    ' + tier + ' ' + rank + ' ' + str(lp) + 'LP (' + str(rWins) + 'W:' + str(rLosses) + 'L)\n\n'
                 reply += '##Most Played Champions:\n\n'
                 reply += '    ' + topPlayedChamps[0][1] + '(' + str(topPlayedChamps[0][0]) + ')\n\n'
                 reply += '    ' + topPlayedChamps[1][1] + '(' + str(topPlayedChamps[1][0]) + ')\n\n'
@@ -232,24 +268,26 @@ while True:
                         reply += '    ' + str(cWins) + 'W:' + str(cLosses) + 'L (' + format(winRatio, '.1f') + '%)\n\n'
                         reply += '    ' + format(aK, '.1f') + '/' + format(aD, '.1f') + '/' + format(aA, '.1f') + '(Average K/D/A)\n\n'
                     else:
-                        reply += 'Either the champion, ' + champion + ', does not exist or the summoner, ' + summoner + ', has not played ' + champion + ' in ranked.'
+                        reply += 'Either the champion, ' + champion + ', does not exist or the summoner, ' + summoner + ', has not played ' + champion + ' in ranked.\n\n'
 
                 print('REPLY:')
                 print(reply)
                 replyToComment(comment, reply)
     except MyException as e:
         print(e.value)
-
     except Exception as e:
         # Logs exceptions
         print('Unexpected error occured')
         with open('log.txt', 'a') as f:
             f.write(str(datetime.datetime.now()) + '\n')
             f.write(summoner + '/' + region + '/' + champion + '\n')
+            f.write(sid + '\n')
             f.write(comment.id + '\n')
         logging.exception(e)
         with open('log.txt', 'a') as f:
             f.write('\n\n\n')
+        # Add comment to backlog
+
     iterations += 1
     print('Iterations done: ' + str(iterations))
     time.sleep(60)
