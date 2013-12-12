@@ -25,7 +25,7 @@ class MyException(Exception):
 
 # Reply to comment
 def replyToComment(comment, reply):
-    reply += "\n\n---\n\nHi! I'm Bot, I reply with League of Legends summoner stats. To summon me, start a comment with one of the following commands:\n\n    !info summonername, region\n\n    !info summonername, region, championname\n\nI currently only support NA, EUW, and EUNE.\n\nI'm still in development, so send me a PM if you spot any errors or would like to give me some feedback."
+    reply += "\n\n---\n\nHi! I'm ScryingBot, I reply with League of Legends summoner stats. To summon me, start a comment with one of the following commands:\n\n    !info summonername, region\n\n    !info summonername, region, championname\n\nI currently only support NA, EUW, and EUNE.\n\nI'm still in development, so send me a PM if you spot any errors or would like to give me some feedback."
     comment.reply(reply)
     
     # Add the comment to the already_done list and file
